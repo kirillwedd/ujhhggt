@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище PPproductModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Администрирование">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Login" Type="char" MaxLength="80" />
+    <Property Name="Password" Type="char" MaxLength="80" />
+    <Property Name="Name" Type="char" MaxLength="80" />
+    <Property Name="Surname" Type="char" MaxLength="80" />
+    <Property Name="Lastname" Type="char" MaxLength="80" />
+    <Property Name="role" Type="char" MaxLength="80" Nullable="false" />
+  </EntityType>
+  <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "PPproduct.dbo.Инверторизация" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+  <EntityType Name="Инверторизация">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" />
+    <Property Name="Местонахождение" Type="char" MaxLength="80" />
+    <Property Name="Инвентарный_номер" Type="char" MaxLength="80" />
+    <Property Name="Дата" Type="date" />
+  </EntityType>
+  <Association Name="FK_Инверторизация_Администрирование">
+    <End Role="Администрирование" Type="Self.Администрирование" Multiplicity="1" />
+    <End Role="Инверторизация" Type="Self.Инверторизация" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Администрирование">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Инверторизация">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище PPproductModelContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Администрирование" EntityType="Self.Администрирование" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Инверторизация" EntityType="Self.Инверторизация" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Инверторизация].[ID] AS [ID], 
+    [Инверторизация].[Местонахождение] AS [Местонахождение], 
+    [Инверторизация].[Инвентарный_номер] AS [Инвентарный_номер], 
+    [Инверторизация].[Дата] AS [Дата]
+    FROM [dbo].[Инверторизация] AS [Инверторизация]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_Инверторизация_Администрирование" Association="Self.FK_Инверторизация_Администрирование">
+      <End Role="Администрирование" EntitySet="Администрирование" />
+      <End Role="Инверторизация" EntitySet="Инверторизация" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

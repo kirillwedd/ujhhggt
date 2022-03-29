@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="PPproductModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Администрирование">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Login" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+    <Property Name="Surname" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+    <Property Name="Lastname" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+    <Property Name="role" Type="String" MaxLength="80" FixedLength="true" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Инверторизация" Relationship="Self.FK_Инверторизация_Администрирование" FromRole="Администрирование" ToRole="Инверторизация" />
+  </EntityType>
+  <EntityType Name="Инверторизация">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" />
+    <Property Name="Местонахождение" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+    <Property Name="Инвентарный_номер" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+    <Property Name="Дата" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Администрирование" Relationship="Self.FK_Инверторизация_Администрирование" FromRole="Инверторизация" ToRole="Администрирование" />
+  </EntityType>
+  <Association Name="FK_Инверторизация_Администрирование">
+    <End Role="Администрирование" Type="Self.Администрирование" Multiplicity="1" />
+    <End Role="Инверторизация" Type="Self.Инверторизация" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Администрирование">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Инверторизация">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="PPproductEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="Администрирование" EntityType="Self.Администрирование" />
+    <EntitySet Name="Инверторизация" EntityType="Self.Инверторизация" />
+    <AssociationSet Name="FK_Инверторизация_Администрирование" Association="Self.FK_Инверторизация_Администрирование">
+      <End Role="Администрирование" EntitySet="Администрирование" />
+      <End Role="Инверторизация" EntitySet="Инверторизация" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

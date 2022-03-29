@@ -1,0 +1,191 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище PPproductModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Администрирование">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Login" Type="char" MaxLength="80" />
+          <Property Name="Password" Type="char" MaxLength="80" />
+          <Property Name="Name" Type="char" MaxLength="80" />
+          <Property Name="Surname" Type="char" MaxLength="80" />
+          <Property Name="Lastname" Type="char" MaxLength="80" />
+          <Property Name="role" Type="char" MaxLength="80" Nullable="false" />
+        </EntityType>
+        <!--Ошибки, обнаруженные при создании:
+предупреждение 6002: В таблице или представлении "PPproduct.dbo.Инверторизация" не определен первичный ключ. Ключ был выведен, а определение таблицы или представления было создано в режиме только для чтения.-->
+        <EntityType Name="Инверторизация">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Местонахождение" Type="char" MaxLength="80" />
+          <Property Name="Инвентарный_номер" Type="char" MaxLength="80" />
+          <Property Name="Дата" Type="date" />
+        </EntityType>
+        <Association Name="FK_Инверторизация_Администрирование">
+          <End Role="Администрирование" Type="Self.Администрирование" Multiplicity="1" />
+          <End Role="Инверторизация" Type="Self.Инверторизация" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Администрирование">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Инверторизация">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище PPproductModelContainer">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Администрирование" EntityType="Self.Администрирование" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Инверторизация" EntityType="Self.Инверторизация" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Инверторизация].[ID] AS [ID], 
+    [Инверторизация].[Местонахождение] AS [Местонахождение], 
+    [Инверторизация].[Инвентарный_номер] AS [Инвентарный_номер], 
+    [Инверторизация].[Дата] AS [Дата]
+    FROM [dbo].[Инверторизация] AS [Инверторизация]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Инверторизация_Администрирование" Association="Self.FK_Инверторизация_Администрирование">
+            <End Role="Администрирование" EntitySet="Администрирование" />
+            <End Role="Инверторизация" EntitySet="Инверторизация" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="PPproductModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Администрирование">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Login" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+          <Property Name="Surname" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+          <Property Name="Lastname" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+          <Property Name="role" Type="String" MaxLength="80" FixedLength="true" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Инверторизация" Relationship="Self.FK_Инверторизация_Администрирование" FromRole="Администрирование" ToRole="Инверторизация" />
+        </EntityType>
+        <EntityType Name="Инверторизация">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Местонахождение" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+          <Property Name="Инвентарный_номер" Type="String" MaxLength="80" FixedLength="true" Unicode="false" />
+          <Property Name="Дата" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Администрирование" Relationship="Self.FK_Инверторизация_Администрирование" FromRole="Инверторизация" ToRole="Администрирование" />
+        </EntityType>
+        <Association Name="FK_Инверторизация_Администрирование">
+          <End Role="Администрирование" Type="Self.Администрирование" Multiplicity="1" />
+          <End Role="Инверторизация" Type="Self.Инверторизация" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Администрирование">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Инверторизация">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="PPproductEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Администрирование" EntityType="Self.Администрирование" />
+          <EntitySet Name="Инверторизация" EntityType="Self.Инверторизация" />
+          <AssociationSet Name="FK_Инверторизация_Администрирование" Association="Self.FK_Инверторизация_Администрирование">
+            <End Role="Администрирование" EntitySet="Администрирование" />
+            <End Role="Инверторизация" EntitySet="Инверторизация" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище PPproductModelContainer" CdmEntityContainer="PPproductEntities">
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="PPproductModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Администрирование">
+            <EntityTypeMapping TypeName="PPproductModel.Администрирование">
+              <MappingFragment StoreEntitySet="Администрирование">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Surname" ColumnName="Surname" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="role" ColumnName="role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Инверторизация">
+            <EntityTypeMapping TypeName="PPproductModel.Инверторизация">
+              <MappingFragment StoreEntitySet="Инверторизация">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Местонахождение" ColumnName="Местонахождение" />
+                <ScalarProperty Name="Инвентарный_номер" ColumnName="Инвентарный_номер" />
+                <ScalarProperty Name="Дата" ColumnName="Дата" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
