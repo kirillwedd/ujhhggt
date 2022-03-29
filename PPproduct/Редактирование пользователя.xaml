@@ -1,0 +1,50 @@
+﻿<Window x:Class="PPproduct.Редактирование_пользователя"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PPproduct"
+        mc:Ignorable="d"
+        Title="Редактирование_пользователя" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Content="Редактирование пользователя" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16"/>
+            <Label Grid.Row="1" Grid.Column="1" Content="Логин" Width="60" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="16" Height="30"/>
+            <Label Grid.Row="2" Grid.Column="1" Content="Роль" VerticalAlignment="Center" HorizontalAlignment="Left"  Width="60" Height="30" FontSize="16"/>
+            <TextBox x:Name="RoleBox"  Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"  Width="114" Height="30" FontSize="16" Grid.ColumnSpan="2" Margin="65,10,0,10" TextChanged="TextBox_TextChanged_1" />
+            <TextBox x:Name="LoginBox" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Left"  Width="114" Height="30" FontSize="16" Grid.ColumnSpan="2" Margin="65,10,0,10" TextChanged="TextBox_TextChanged" />
+            <Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Width="150" Height="35" Content="Сохранить" FontSize="16" Click="Button_Click"/>
+
+        </Grid>
+        
+
+    </Grid>
+</Window>
